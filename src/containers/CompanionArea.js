@@ -24,6 +24,7 @@ const styles = theme => ({
     position: 'relative',
     minHeight: 0,
     display: 'flex',
+    zIndex: theme.zIndex.appBar - 2,
   },
   horizontal: {
     width: '100%',
@@ -33,7 +34,6 @@ const styles = theme => ({
     position: 'absolute',
     left: '100%',
     width: '1rem',
-    zIndex: theme.zIndex.drawer,
     backgroundColor: theme.palette.background.paper,
     border: `1px solid ${theme.palette.primary.dark}`,
     borderRadius: 0,

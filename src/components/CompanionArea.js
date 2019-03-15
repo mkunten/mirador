@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Slide from '@material-ui/core/Slide';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeftSharp';
 import ArrowRightIcon from '@material-ui/icons/ArrowRightSharp';
 import CompanionWindowFactory from '../containers/CompanionWindowFactory';
@@ -38,13 +39,15 @@ export class CompanionArea extends Component {
             </MiradorMenuButton>
           )
         }
-        <div className={[ns('companion-windows'), this.areaLayoutClass()].join(' ')} style={{ display: companionAreaOpen && (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}>
-          {
-            companionWindows.map(cw => (
-              <CompanionWindowFactory id={cw.id} key={cw.id} windowId={windowId} />
-            ))
-          }
-        </div>
+        <Slide in={companionAreaOpen && (position !== 'left' || sideBarOpen)} direction="right">
+          <div className={[ns('companion-windows'), this.areaLayoutClass()].join(' ')} style={{ display: companionAreaOpen && (position !== 'left' || sideBarOpen) ? 'flex' : 'none' }}>
+            {
+              companionWindows.map(cw => (
+                <CompanionWindowFactory id={cw.id} key={cw.id} windowId={windowId} />
+              ))
+            }
+          </div>
+        </Slide>
       </div>
     );
   }
