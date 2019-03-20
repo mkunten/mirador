@@ -42,6 +42,7 @@ const mapStateToProps = (state, { windowId }) => ({
 const mapDispatchToProps = {
   deselectAnnotation: actions.deselectAnnotation,
   selectAnnotation: actions.selectAnnotation,
+  setAnnotations: actions.setAnnotations,
 };
 
 /** */

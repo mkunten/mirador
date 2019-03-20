@@ -10,6 +10,7 @@ function createWrapper(props) {
       classes={{}}
       deselectAnnotation={() => {}}
       selectAnnotation={() => {}}
+      setAnnotations={() => {}}
       id="xyz"
       windowId="abc"
       {...props}
@@ -51,7 +52,37 @@ describe('WindowSideBarAnnotationsPanel', () => {
     expect(wrapper.find('SanitizedHtml[htmlString="Last Annotation"]').length).toBe(1);
   });
 
-  it('triggers the selectAnnotation prop with the correct arguments when clicking an unselected annotation', () => {
+  it('triggers the setAnnotations prop with the correct arguments when clicking an unselected annotation', () => {
+    const setAnnotations = jest.fn();
+
+    wrapper = createWrapper({
+      annotations: [
+        { content: 'First Annotation', id: 'abc123', targetId: 'example.com/iiif/12345' },
+        { content: 'Last Annotation', id: 'xyz321', targetId: 'example.com/iiif/54321' },
+      ],
+      setAnnotations,
+    });
+
+    wrapper.find('WithStyles(ListItem)').first().simulate('click', {});
+    expect(setAnnotations).toHaveBeenCalledWith('abc', 'example.com/iiif/12345', 'abc123');
+  });
+
+  it('triggers the selectAnnotation prop with the correct arguments when clicking an unselected annotation while holding the shift key', () => {
+    const selectAnnotation = jest.fn();
+
+    wrapper = createWrapper({
+      annotations: [
+        { content: 'First Annotation', id: 'abc123', targetId: 'example.com/iiif/12345' },
+        { content: 'Last Annotation', id: 'xyz321', targetId: 'example.com/iiif/54321' },
+      ],
+      selectAnnotation,
+    });
+
+    wrapper.find('WithStyles(ListItem)').first().simulate('click', { shiftKey: true });
+    expect(selectAnnotation).toHaveBeenCalledWith('abc', 'example.com/iiif/12345', 'abc123');
+  });
+
+  it('triggers the selectAnnotation prop with the correct arguments when clicking an unselected annotation while holding the meta key', () => {
     const selectAnnotation = jest.fn();
 
     wrapper = createWrapper({
@@ -70,7 +101,7 @@ describe('WindowSideBarAnnotationsPanel', () => {
       selectAnnotation,
     });
 
-    wrapper.find('WithStyles(ListItem)').first().simulate('click');
+    wrapper.find('WithStyles(ListItem)').first().simulate('click', { metaKey: true });
     expect(selectAnnotation).toHaveBeenCalledWith('abc', 'example.com/iiif/12345', 'abc123');
   });
 
@@ -94,7 +125,7 @@ describe('WindowSideBarAnnotationsPanel', () => {
       selectedAnnotationIds: ['abc123'],
     });
 
-    wrapper.find('WithStyles(ListItem)').first().simulate('click');
+    wrapper.find('WithStyles(ListItem)').first().simulate('click', {});
     expect(deselectAnnotation).toHaveBeenCalledWith('abc', 'example.com/iiif/12345', 'abc123');
   });
 });
