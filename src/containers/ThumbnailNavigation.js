@@ -12,19 +12,14 @@ import { getManifestCanvases } from '../state/selectors';
  * @memberof ThumbnailNavigation
  * @private
  */
-const mapStateToProps = ({
-  companionWindows, config, manifests, windows,
-}, { windowId }) => ({
+const mapStateToProps = (state, { windowId }) => ({
   canvasGroupings: new CanvasGroupings(
-    getManifestCanvases({
-      manifests,
-      windows,
-    }, { windowId }),
-    windows[windowId].view,
+    getManifestCanvases(state, { windowId }),
+    state.windows[windowId].view,
   ),
-  config,
-  position: companionWindows[windows[windowId].thumbnailNavigationId].position,
-  window: windows[windowId],
+  config: state.config,
+  position: state.companionWindows[state.windows[windowId].thumbnailNavigationId].position,
+  window: state.windows[windowId],
 });
 
 /**
