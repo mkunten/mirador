@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import WorkspaceControlPanel from '../../../src/containers/WorkspaceControlPanel';
 import Workspace from '../../../src/containers/Workspace';
 import WorkspaceAdd from '../../../src/containers/WorkspaceAdd';
+import BackgroundPluginArea from '../../../src/containers/BackgroundPluginArea';
 import { WorkspaceArea } from '../../../src/components/WorkspaceArea';
 
 /** */
@@ -29,6 +30,7 @@ describe('WorkspaceArea', () => {
       <main>
         <WorkspaceControlPanel />
         <Workspace />
+        <BackgroundPluginArea />
       </main>,
     )).toBeTruthy();
   });
