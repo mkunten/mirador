@@ -31,6 +31,25 @@ class IntersectionObserverPolyfill {
 global.IntersectionObserver = IntersectionObserverPolyfill;
 global.Image = window.Image;
 
+/**
+ * copy object property descriptors from `src` to `target` 
+ * @param {*} src
+ * @param {*} target
+ */
+const copyProps = (src, target) => {
+  Object.defineProperties(target, {
+    ...Object.getOwnPropertyDescriptors(src),
+    ...Object.getOwnPropertyDescriptors(target),
+  });
+};
+
+/*
+  avoid'ReferenceError: HTMLElement is not defined'
+  see https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
+  for further information
+*/
+copyProps(window, global);
+
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock('react-i18next', () => ({
