@@ -18,7 +18,8 @@ module.exports = function(grunt) {
   // ----------
   var distribution = 'build/mirador/mirador.js',
   minified = 'build/mirador/mirador.min.js',
-  releaseRoot = '../site-build/built-mirador/',
+  //releaseRoot = '../site-build/built-mirador/',
+  releaseRoot = '../../mkunten/sandbox/docs/mirador/build/',
 
   // libraries/plugins
   vendors = [
@@ -63,7 +64,8 @@ module.exports = function(grunt) {
     'js/src/annotations/*.js',
     'js/src/workspaces/*.js',
     'js/src/widgets/*.js',
-    'js/src/utils/*.js'
+    'js/src/utils/*.js',
+    'node_modules/mirador-jump-to-page/jump_to_page.js'
   ];
 
   // ----------
